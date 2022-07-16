@@ -15,6 +15,6 @@ public class User {
     private String name;
     private String surname;
     private String mail;
-    private int phone;
+    private String phone;
     private String street;
 }
