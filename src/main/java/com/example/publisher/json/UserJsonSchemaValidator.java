@@ -11,12 +11,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class JsonSchemaValidation {
+public class UserJsonSchemaValidator {
 
     File schemaFile = new File("src/json-schema.json");
     JSONObject jsonSchema = new JSONObject(new JSONTokener(new FileInputStream(schemaFile)));
 
-    public JsonSchemaValidation() throws FileNotFoundException {
+    public UserJsonSchemaValidator() throws FileNotFoundException {
     }
 
     public void validateJson(String json) throws ValidationException{
