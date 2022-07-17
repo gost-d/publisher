@@ -1,9 +1,10 @@
-package com.example.publisher.publisher;
+package com.example.publisher.services;
 
 
 import com.example.publisher.config.MessageConfig;
 import com.example.publisher.dto.User;
 import com.example.publisher.json.JsonSchemaValidation;
+import com.example.publisher.publisher.UserPub;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -16,7 +17,7 @@ import java.io.FileNotFoundException;
 import java.util.UUID;
 
 @RestController
-public class UserPublisher {
+public class UserServices {
 
     @Autowired
     private RabbitTemplate template;
