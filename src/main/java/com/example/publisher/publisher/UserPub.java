@@ -15,12 +15,11 @@ import org.springframework.stereotype.Component;
 import java.io.FileNotFoundException;
 import java.util.UUID;
 
-
+@Component
 public class UserPub {
 
     public void sendMessage(User user, RabbitTemplate template) throws JsonProcessingException, FileNotFoundException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String json = ow.writeValueAsString(user);
+        String json  = new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(user);
         JsonSchemaValidation validator = new JsonSchemaValidation();
         validator.validateJson(json);
         user.setUserId(UUID.randomUUID().toString());

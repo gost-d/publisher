@@ -11,6 +11,9 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.everit.json.schema.ValidationException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
@@ -23,15 +26,16 @@ public class UserServices {
     private RabbitTemplate template;
 
     @PostMapping("/add")
-    public String addUser(@RequestBody User user) throws FileNotFoundException, JsonProcessingException {
+    public ResponseEntity<String> addUser(@RequestBody User user) throws FileNotFoundException, JsonProcessingException {
         try {
             UserPub userPub = new UserPub();
             userPub.sendMessage(user, template);
-            return "200";
+            return new ResponseEntity<>(HttpStatus.OK);
+
         } catch (ValidationException e) {
             System.out.println("validation failed");
             e.printStackTrace();
-            return "Validation failed";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }
