@@ -24,12 +24,8 @@ public class UserPublisher {
     @PostMapping("/add")
     public String addUser(@RequestBody User user) throws FileNotFoundException, JsonProcessingException {
         try {
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            String json = ow.writeValueAsString(user);
-            JsonSchemaValidation validator = new JsonSchemaValidation();
-            validator.validateJson(json);
-            user.setUserId(UUID.randomUUID().toString());
-            template.convertAndSend(MessageConfig.EXCHANGE, MessageConfig.ROUTING_KEY, user);
+            UserPub userPub = new UserPub();
+            userPub.sendMessage(user, template);
             return "200";
         } catch (ValidationException e) {
             System.out.println("validation failed");
